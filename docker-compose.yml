@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: laravel-app-login-v1
+    build:
+      context: .
+      dockerfile: ./local/docker/Dockerfile
+      args:
+          USER_UID: 1000
+          USER_GID: 1000
+    volumes:
+      - ./:/var/www
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql-laravel-app-login-v1
+      DB_DATABASE: laravel
+      DB_ROOT_PASSWORD: root
+      DB_PASSWORD: userpass
+      DB_USERNAME: username
+      DB_PORT: 3306
+      TZ: America/Sao_Paulo
+    ports:
+      - "9000:9000"
+    networks:
+      - networks-laravel-app-login-v1
+
+  webserver:
+    image: nginx:alpine
+    container_name: nginx-laravel-app-login-v1
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./local/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - networks-laravel-app-login-v1
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-laravel-app-login-v1
+    environment:
+      DB_CONNECTION: mysql
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: username
+      MYSQL_PASSWORD: userpass
+      MYSQL_ROOT_PASSWORD: root
+      TZ: America/Sao_Paulo
+    ports:
+      - "3308:3306"
+    volumes:
+      - db-laravel-app-login-v1:/var/lib/mysql
+    networks:
+      - networks-laravel-app-login-v1
+
+networks:
+  networks-laravel-app-login-v1:
+    driver: bridge
+
+volumes:
+  db-laravel-app-login-v1:
+    driver: local
