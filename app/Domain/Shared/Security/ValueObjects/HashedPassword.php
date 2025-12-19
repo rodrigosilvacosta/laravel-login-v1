@@ -14,7 +14,7 @@ final class HashedPassword
 {
     use PropertyAccessTrait;
 
-    private function __construct(private readonly string $value)
+    public function __construct(private readonly string $value)
     {
         $this->validate();
     }
