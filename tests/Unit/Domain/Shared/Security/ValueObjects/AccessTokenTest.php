@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Shared\Secutity\ValueObjects;
+namespace Tests\Unit\Domain\Shared\Security\ValueObjects;
 
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
