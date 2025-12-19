@@ -13,6 +13,18 @@ final class DeviceName
 {
     use PropertyAccessTrait;
 
+    /**
+     * REGEX permitindo os seguintes caracteres:
+     * a-z letras minúsculas
+     * A-Z letras maiúsculas
+     * A-Z	letras maiúsculas
+     * 0-9	números
+     * 	espaço
+     * _ underscore
+     * \-.	hífen - e ponto .
+     */
+    private const REGEX_VALIDATION = '/^[a-zA-Z0-9 _\-.]+$/';
+
     public function __construct(private readonly string $value)
     {
         $this->validate();
@@ -25,7 +37,9 @@ final class DeviceName
 
     private function validate(): void
     {
-        if (empty(trim($this->value))) {
+        $valuetrimmed = trim($this->value);
+
+        if (empty($valuetrimmed) || !preg_match(self::REGEX_VALIDATION, $valuetrimmed)) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::DEVICE_NAME_INVALID);
         }
     }

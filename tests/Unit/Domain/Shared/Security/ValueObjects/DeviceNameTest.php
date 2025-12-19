@@ -41,6 +41,10 @@ class DeviceNameTest extends TestCase
         return [
             [''], // vazio
             ['  '], // com somente espaços em branco
+            ['<script>alert(1)</script>'], // com script   malicioso
+            ['Device@Name!'], // com caracteres inválidos
+            ["Nome\nDispositivo"], // com nova linha
+            ["Nome\tDispositivo"], // com tabulação
         ];
     }
 }
