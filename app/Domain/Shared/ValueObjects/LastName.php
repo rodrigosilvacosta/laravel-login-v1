@@ -9,7 +9,7 @@ use App\Domain\Shared\Helpers\Traits\PropertyAccessTrait;
 /**
  * @property string $value
  */
-final class Name
+final class LastName
 {
     use PropertyAccessTrait;
 
@@ -35,7 +35,7 @@ final class Name
     private function validate(): void
     {
         if (1 !== preg_match(self::VALIDATE_REGEX, $this->value)) {
-            throw new AppDomainException(AppDomainExceptionCodeEnum::NAME_INVALID);
+            throw new AppDomainException(AppDomainExceptionCodeEnum::LAST_NAME_INVALID);
         }
     }
 }

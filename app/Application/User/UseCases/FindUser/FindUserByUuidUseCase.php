@@ -25,7 +25,7 @@ class FindUserByUuidUseCase
 
         return FindUserByUuidOutputDto::createFrom(
             uuid: $userEntity->uuid->value,
-            name: $userEntity->name->value,
+            firstName: $userEntity->firstName->value,
             lastName: $userEntity->lastName->value,
             email: $userEntity->email->value
         );

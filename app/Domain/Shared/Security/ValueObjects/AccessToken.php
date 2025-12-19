@@ -5,7 +5,6 @@ namespace App\Domain\Shared\Security\ValueObjects;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Helpers\Traits\PropertyAccessTrait;
-use Illuminate\Support\Facades\App;
 
 /**
  * @property string $value

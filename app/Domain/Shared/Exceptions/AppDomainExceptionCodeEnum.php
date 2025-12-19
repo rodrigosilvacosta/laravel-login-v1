@@ -10,7 +10,8 @@ enum AppDomainExceptionCodeEnum: int
     case DEVICE_NAME_INVALID = 1102;
     case ACCESS_TOKEN_INVALID = 1103;
     case UUID_INVALID = 1200;
-    case NAME_INVALID = 1300;
+    case FIRST_NAME_INVALID = 1300;
+    case LAST_NAME_INVALID = 1301;
     case USER_NOT_FOUND = 1400;
     case USER_AUTHENTICATION_FAILURE = 1500;
     case USER_ACCESS_TOKEN_CREATION_FAILURE = 1501;
@@ -26,7 +27,8 @@ enum AppDomainExceptionCodeEnum: int
             self::DEVICE_NAME_INVALID => 'Nome do dispositivo ínvalido.',
             self::ACCESS_TOKEN_INVALID => 'Token de acesso ínvalido.',
             self::UUID_INVALID => 'Uiid ínvalido.',
-            self::NAME_INVALID => 'Nome ínvalido.',
+            self::FIRST_NAME_INVALID => 'Nome ínvalido.',
+            self::LAST_NAME_INVALID => 'Sobrenome ínvalido.',
             self::USER_NOT_FOUND => 'Usuário não encontrado.',
             self::USER_AUTHENTICATION_FAILURE => 'Usuário ou senha inválidos.',
             self::USER_ACCESS_TOKEN_CREATION_FAILURE => 'Falha ao criar token de acesso.',

@@ -23,7 +23,7 @@ class PostUserRequest extends AppFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:45',
+            'first_name' => 'required|string|min:2|max:45',
             'last_name' => 'required|string|min:2|max:45',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|max:64|confirmed',
@@ -35,7 +35,7 @@ class PostUserRequest extends AppFormRequest
         $params = $this->safe()->all();
 
         return new RegisterUserInputDto(
-            name: $params['name'],
+            firstName: $params['first_name'],
             lastName: $params['last_name'],
             email: $params['email'],
             password: $params['password'],

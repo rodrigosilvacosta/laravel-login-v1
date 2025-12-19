@@ -3,12 +3,10 @@
 namespace App\Infrastructure\Persistence\Eloquent\User;
 
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
-use App\Domain\Shared\ValueObjects\Email;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
 use App\Models\User;
-use Dom\Entity;
 
 class UserRespository implements UserRepositoryInterface
 {
@@ -16,7 +14,7 @@ class UserRespository implements UserRepositoryInterface
     {
         $data = [
             'uuid' => $userEntity->uuid->value,
-            'name' => $userEntity->name->value,
+            'name' => $userEntity->firstName->value,
             'last_name' => $userEntity->lastName->value,
             'email' => $userEntity->email->value,
             'password' => $plainPassword->value,
@@ -31,7 +29,7 @@ class UserRespository implements UserRepositoryInterface
         return UserEntity::createFromPrimitives(
             id: $model->id,
             uuid: $model->uuid,
-            name: $model->name,
+            firstName: $model->firstName,
             lastName: $model->last_name,
             email: $model->email
         );
@@ -48,7 +46,7 @@ class UserRespository implements UserRepositoryInterface
         return UserEntity::createFromPrimitives(
             id: $model->id,
             uuid: $model->uuid,
-            name: $model->name,
+            firstName: $model->firstName,
             lastName: $model->last_name,
             email: $model->email
         );
@@ -57,7 +55,7 @@ class UserRespository implements UserRepositoryInterface
     public function update(UserEntity $userEntity): int
     {
         $affectedRows = User::where('uuid', $userEntity->uuid)->update([
-            'name' => $userEntity->name->value,
+            'name' => $userEntity->firstName->value,
             'last_name' => $userEntity->lastName->value,
             'email' => $userEntity->email->value,
         ]);
