@@ -28,9 +28,11 @@ final class PlainPassword
 
     private function validate(): void
     {
+        $length = strlen(trim($this->value));
+
         if (
-            strlen($this->value) <= self::MIN_LENGTH
-            && strlen($this->value) >= self::MAX_LENGTH
+            $length <= self::MIN_LENGTH
+            || $length >= self::MAX_LENGTH
         ) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::PASSWORD_INVALID);
         }
