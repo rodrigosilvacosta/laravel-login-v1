@@ -31,8 +31,8 @@ final class PlainPassword
         $length = strlen(trim($this->value));
 
         if (
-            $length <= self::MIN_LENGTH
-            || $length >= self::MAX_LENGTH
+            $length < self::MIN_LENGTH
+            || $length > self::MAX_LENGTH
         ) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::PASSWORD_INVALID);
         }
