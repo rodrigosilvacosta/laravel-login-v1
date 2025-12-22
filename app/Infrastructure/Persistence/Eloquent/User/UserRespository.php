@@ -14,7 +14,7 @@ class UserRespository implements UserRepositoryInterface
     {
         $data = [
             'uuid' => $userEntity->uuid->value,
-            'name' => $userEntity->firstName->value,
+            'first_name' => $userEntity->firstName->value,
             'last_name' => $userEntity->lastName->value,
             'email' => $userEntity->email->value,
             'password' => $plainPassword->value,
@@ -55,7 +55,7 @@ class UserRespository implements UserRepositoryInterface
     public function update(UserEntity $userEntity): int
     {
         $affectedRows = User::where('uuid', $userEntity->uuid)->update([
-            'name' => $userEntity->firstName->value,
+            'first_name' => $userEntity->firstName->value,
             'last_name' => $userEntity->lastName->value,
             'email' => $userEntity->email->value,
         ]);
