@@ -12,7 +12,7 @@ class PlainPasswordTest extends TestCase
 {
     public function plain_password_instantiation(): void
     {
-        $plainPasswordProvided = 'someplainpassword';
+        $plainPasswordProvided = 'password';
         $plainPassword = new PlainPassword($plainPasswordProvided);
 
         $this->assertSame($plainPassword->value, $plainPasswordProvided);
@@ -20,7 +20,7 @@ class PlainPasswordTest extends TestCase
 
     public function test_plain_password_creation(): void
     {
-        $plainPasswordProvided = 'anotherplainpassword';
+        $plainPasswordProvided = 'passwordpassword';
         $plainPassword = PlainPassword::create($plainPasswordProvided);
 
         $this->assertSame($plainPassword->value, $plainPasswordProvided);
