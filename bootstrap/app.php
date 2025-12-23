@@ -4,6 +4,7 @@ use App\Domain\Shared\Exceptions\AppDomainException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -19,8 +20,14 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (AppDomainException $e) {
             return response()->json([
-                'error' => $e->getMessage(),
+                'errors' => $e->getMessage(),
                 'code' => $e->getCode(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        });
+        $exceptions->render(function (ValidationException $e) {
+            return response()->json([
+                'message' =>  __('custom.failed'),
+                'errors' => $e->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         });
     })->create();
