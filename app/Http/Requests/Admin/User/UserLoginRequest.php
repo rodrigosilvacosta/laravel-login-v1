@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Application\Dto\InputDto;
 use App\Application\User\Dtos\Inputs\LoginUserInputDto;
 use App\Http\Requests\AppFormRequest;
-use Illuminate\Auth\Events\Login;
 
 class UserLoginRequest extends AppFormRequest
 {
@@ -25,9 +23,9 @@ class UserLoginRequest extends AppFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required',
+            'email' => 'required|email:filter',
+            'password' => 'required|min:8|max:64',
+            'device_name' => 'required|string|min:2|max:45',
         ];
     }
 
