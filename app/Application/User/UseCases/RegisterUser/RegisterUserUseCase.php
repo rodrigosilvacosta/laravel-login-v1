@@ -24,6 +24,10 @@ class RegisterUserUseCase
             email: $inputDto->email
         );
 
+        /**
+         * @todo a senha deverá ser criada através do link de confirmação
+         *  que será enviado por e-mail
+         */
         $plainPassword = PlainPassword::create($inputDto->password);
         $userEntity = $this->userRepository->createWithPassword($userEntity, $plainPassword);
 
