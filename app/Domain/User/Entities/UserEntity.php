@@ -27,7 +27,7 @@ class UserEntity
         private readonly Email $email
     ) {}
 
-    public static function register(
+    public static function createFromRegisterPrimitives(
         string $firstName,
         string $lastName,
         string $email

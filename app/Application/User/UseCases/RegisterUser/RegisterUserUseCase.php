@@ -18,7 +18,7 @@ class RegisterUserUseCase
 
     public function execute(RegisterUserInputDto $inputDto): RegisterUserOutputDto
     {
-        $userEntity = UserEntity::register(
+        $userEntity = UserEntity::createFromRegisterPrimitives(
             firstName: $inputDto->firstName,
             lastName: $inputDto->lastName,
             email: $inputDto->email
