@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Application\User\UseCases\LoginUser\LoginUserUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserLoginRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserLoginController extends Controller
 {
@@ -17,6 +18,6 @@ class UserLoginController extends Controller
         $dto = $request->toDto();
         $outputDto = $this->loginUserUseCase->execute($dto);
 
-        return response()->json($outputDto->toArray());
+        return response()->json($outputDto->toArray(), Response::HTTP_OK);
     }
 }

@@ -6,11 +6,14 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class UserLoginContollerTest extends TestCase
 {
     use RefreshDatabase;
+
+    private const URI_TEST = 'api/admin/login';
 
     public function test_user_login_controller(): void
     {
@@ -29,40 +32,37 @@ class UserLoginContollerTest extends TestCase
             'device_name' => $deviceName,
         ];
 
-        $response = $this->post('api/admin/login', $data);
+        $response = $this->postJson(self::URI_TEST, $data);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure(['token']);
         $this->assertIsString($response->json('token'));
     }
 
     #[DataProvider('invalid_request_data_provider')]
-    public function test_user_login_controller_fail(
+    public function test_user_login_controller_invalid_request(
         array $data,
-        array $expectedErrors,
-        array $unexpectedErrors
+        array $expectedErrors
     ): void {
-        $response = $this->post('api/admin/login', $data);
+        $response = $this->postJson(self::URI_TEST, $data);
 
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $response->assertJsonValidationErrors($expectedErrors);
-        $response->assertJsonMissingValidationErrors($unexpectedErrors);
     }
 
     public static function invalid_request_data_provider(): array
     {
         return [
-            [
+            'empty request' => [
                 'data' => [],
                 'expectedErrors' => [
                     'email',
                     'device_name',
                     'password',
                 ],
-                'unexpectedErrors' => []
             ],
-            [
+            'empty fields' => [
                 'data' => [
                     'email' => '',
                     'password' => '',
@@ -73,9 +73,8 @@ class UserLoginContollerTest extends TestCase
                     'device_name',
                     'password',
                 ],
-                'unexpectedErrors' => []
             ],
-            [
+            'invalid email, password and device name' => [
                 'data' => [
                     'email' => 'email@com',
                     'password' => 'passwor',
@@ -86,9 +85,8 @@ class UserLoginContollerTest extends TestCase
                     'device_name',
                     'password',
                 ],
-                'unexpectedErrors' => []
             ],
-            [
+            'invalid email, password and device name 2' => [
                 'data' => [
                     'email' => 'email',
                     'password' => str_repeat('a', 66),
@@ -99,7 +97,6 @@ class UserLoginContollerTest extends TestCase
                     'device_name',
                     'password',
                 ],
-                'unexpectedErrors' => []
             ]
         ];
     }
