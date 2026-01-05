@@ -29,7 +29,7 @@ class UserRespository implements UserRepositoryInterface
         return UserEntity::createFromPrimitives(
             id: $model->id,
             uuid: $model->uuid,
-            firstName: $model->firstName,
+            firstName: $model->first_name,
             lastName: $model->last_name,
             email: $model->email
         );
@@ -46,7 +46,7 @@ class UserRespository implements UserRepositoryInterface
         return UserEntity::createFromPrimitives(
             id: $model->id,
             uuid: $model->uuid,
-            firstName: $model->firstName,
+            firstName: $model->first_name,
             lastName: $model->last_name,
             email: $model->email
         );
