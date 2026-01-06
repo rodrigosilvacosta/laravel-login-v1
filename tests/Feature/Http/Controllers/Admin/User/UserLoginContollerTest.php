@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Admin\User;
 
+use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +38,38 @@ class UserLoginContollerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure(['token']);
         $this->assertIsString($response->json('token'));
+    }
+
+    #[DataProvider('autentication_failure_data_provider')]
+    public function test_user_login_controller_autentication_failure(
+        string $validEmail,
+        string $validPassword,
+        string $emailProvided,
+        string $passwordProvided
+    ): void {
+
+        $user = User::factory()->create([
+            'first_name' => 'User',
+            'last_name' => 'One',
+            'email' => $validEmail,
+            'password' => Hash::make($validPassword),
+        ]);
+
+        $data = [
+            'email' => $emailProvided,
+            'password' => $passwordProvided,
+            'device_name' => 'device_name',
+        ];
+
+        $response = $this->postJson(self::URI_TEST, $data);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonMissing(['token']);
+        $response->assertJsonStructure(['code', 'errors']);
+        $response->assertJsonFragment([
+            'code' => AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->value,
+            'errors' => AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->getMessage(),
+        ]);
     }
 
     #[DataProvider('invalid_request_data_provider')]
@@ -98,6 +131,25 @@ class UserLoginContollerTest extends TestCase
                     'password',
                 ],
             ]
+        ];
+    }
+
+    public static function autentication_failure_data_provider(): array
+    {
+        // valid email: example@ema
+        return [
+            'incorrect email' => [
+                'validEmail' => 'email@example.com',
+                'validPassword' => 'password',
+                'emailProvided' => 'invalid_email@example.com',
+                'passwordProvided' => 'password',
+            ],
+            'incorrect password' => [
+                'validEmail' => 'email@example.com',
+                'validPassword' => 'password',
+                'emailProvided' => 'email@example.com',
+                'passwordProvided' => 'invalid_password',
+            ],
         ];
     }
 }
