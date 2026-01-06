@@ -2,16 +2,16 @@
 
 namespace Tests\Feature\Http\Controllers\Admin\User;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Helpers\Feature\SanctumUserCreatorTrait;
 use Tests\TestCase;
 
 class UserCreateControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use SanctumUserCreatorTrait;
 
     private const URI_TEST = 'api/admin/users';
 
@@ -122,15 +122,5 @@ class UserCreateControllerTest extends TestCase
                 ],
             ],
         ];
-    }
-
-    private function createValidAdminUser(): User
-    {
-        $adminUser = User::factory()->create();
-
-        /** com isso não precisa enviar o token no header para o test */
-        Sanctum::actingAs($adminUser);
-
-        return $adminUser;
     }
 }
