@@ -74,7 +74,7 @@ class UserLoginContollerTest extends TestCase
                     'password',
                 ],
             ],
-            'invalid email, password and device name' => [
+            'invalid email, password and device name case 1' => [
                 'data' => [
                     'email' => 'email@com',
                     'password' => 'passwor',
@@ -86,7 +86,7 @@ class UserLoginContollerTest extends TestCase
                     'password',
                 ],
             ],
-            'invalid email, password and device name 2' => [
+            'invalid email, password and device name case 2' => [
                 'data' => [
                     'email' => 'email',
                     'password' => str_repeat('a', 66),

@@ -15,9 +15,9 @@ class FindUserByUuidUseCase
 
     public function execute(FindUserByUuidInputDto $inputDto): FindUserByUuidOutputDto
     {
-        $UserUuid = UserUuid::fromUuid($inputDto->uuid);
+        $userUuid = UserUuid::fromUuid($inputDto->uuid);
 
-        $userEntity = $this->userRepository->findByUuid($UserUuid);
+        $userEntity = $this->userRepository->findByUuid($userUuid);
 
         if (!$userEntity) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_NOT_FOUND);
