@@ -4,6 +4,9 @@ namespace App\Application\User\Dtos\Outputs;
 
 use App\Application\Dto\OutputDto;
 
+/**
+ * @property-read string $token
+ */
 class LoginUserOutputDto extends OutputDto
 {
     public function __construct(

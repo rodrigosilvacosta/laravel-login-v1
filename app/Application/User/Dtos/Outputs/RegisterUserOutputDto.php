@@ -5,7 +5,7 @@ namespace App\Application\User\Dtos\Outputs;
 use App\Application\Dto\OutputDto;
 
 /**
- * @property string $uuid
+ * @property-read string $uuid
  */
 class RegisterUserOutputDto extends OutputDto
 {

@@ -5,7 +5,7 @@ namespace App\Application\User\Dtos\Inputs;
 use App\Application\Dto\InputDto;
 
 /**
- * @property string $uuid
+ * @property-read string $uuid
  */
 class FindUserByUuidInputDto extends InputDto
 {

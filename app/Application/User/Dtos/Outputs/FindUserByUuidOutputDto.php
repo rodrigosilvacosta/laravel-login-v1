@@ -4,6 +4,12 @@ namespace App\Application\User\Dtos\Outputs;
 
 use App\Application\Dto\OutputDto;
 
+/**
+ * @property-read string $uuid
+ * @property-read string $firstName
+ * @property-read string $lastName
+ * @property-read string $email
+ */
 class FindUserByUuidOutputDto extends OutputDto
 {
     public function __construct(

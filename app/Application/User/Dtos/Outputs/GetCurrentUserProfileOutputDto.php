@@ -5,10 +5,10 @@ namespace App\Application\User\Dtos\Outputs;
 use App\Application\Dto\OutputDto;
 
 /**
- * @property string $uuid
- * @property string $firstName
- * @property string $lastName
- * @property string $email
+ * @property-read string $uuid
+ * @property-read string $firstName
+ * @property-read string $lastName
+ * @property-read string $email
  */
 class GetCurrentUserProfileOutputDto extends OutputDto
 {

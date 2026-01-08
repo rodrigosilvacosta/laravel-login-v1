@@ -5,10 +5,10 @@ namespace App\Application\User\Dtos\Inputs;
 use App\Application\Dto\InputDto;
 
 /**
- * @property string $firstName
- * @property string $lastName
- * @property string $email
- * @property string $password
+ * @property-read string $firstName
+ * @property-read string $lastName
+ * @property-read string $email
+ * @property-read string $password
  */
 class RegisterUserInputDto extends InputDto
 {

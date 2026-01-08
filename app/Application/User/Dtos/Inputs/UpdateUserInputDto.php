@@ -5,9 +5,9 @@ namespace App\Application\User\Dtos\Inputs;
 use App\Application\Dto\InputDto;
 
 /**
- * @property string $firstName
- * @property string $lastName
- * @property string $password
+ * @property-read string $firstName
+ * @property-read string $lastName
+ * @property-read string $password
  */
 class UpdateUserInputDto extends InputDto
 {

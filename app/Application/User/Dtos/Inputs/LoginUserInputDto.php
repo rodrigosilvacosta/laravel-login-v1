@@ -5,9 +5,9 @@ namespace App\Application\User\Dtos\Inputs;
 use App\Application\Dto\InputDto;
 
 /**
- * @property string $email
- * @property string $password
- * @property string $deviceName
+ * @property-read string $email
+ * @property-read string $password
+ * @property-read string $deviceName
  */
 class LoginUserInputDto extends InputDto
 {
