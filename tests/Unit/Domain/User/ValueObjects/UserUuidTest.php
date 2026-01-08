@@ -11,18 +11,10 @@ use Ramsey\Uuid\Uuid;
 
 class UserUuidTest extends TestCase
 {
-    public function test_user_uuid_instatiation(): void
-    {
-        $strUuid = '123e4567-e89b-12d3-a456-426614174000';
-        $userUuid = new UserUuid($strUuid);
-
-        $this->assertEquals($strUuid, $userUuid->value);
-    }
-
     public function test_user_uuid_from_valid_uuid(): void
     {
         $strUuid = '123e4567-e89b-12d3-a456-426614174000';
-        $userUuid = UserUuid::fromUuid($strUuid);
+        $userUuid = UserUuid::fromString($strUuid);
 
         $this->assertEquals($strUuid, $userUuid->value);
     }
@@ -41,7 +33,7 @@ class UserUuidTest extends TestCase
         $this->expectExceptionMessage(AppDomainExceptionCodeEnum::UUID_INVALID->getMessage());
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::UUID_INVALID->value);
 
-        UserUuid::fromUuid($strUuid);
+        UserUuid::fromString($strUuid);
     }
 
     public static function invalid_uuid_provider(): array

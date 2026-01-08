@@ -27,7 +27,7 @@ class UserEntity
         private readonly Email $email
     ) {}
 
-    public static function createFromRegisterPrimitives(
+    public static function createFromBasicPrimitives(
         string $firstName,
         string $lastName,
         string $email
@@ -50,7 +50,7 @@ class UserEntity
     ): self {
         return new self(
             id: $id,
-            uuid: UserUuid::fromUuid($uuid),
+            uuid: UserUuid::fromString($uuid),
             firstName: FirstName::create($firstName),
             lastName: LastName::create($lastName),
             email: Email::create($email)

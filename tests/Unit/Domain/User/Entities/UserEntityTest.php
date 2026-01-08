@@ -14,7 +14,7 @@ class UserEntityTest extends TestCase
         $lastName = 'Doe';
         $email = 'john.doe@example.com';
 
-        $userEntity = UserEntity::createFromRegisterPrimitives($firstName, $lastName, $email);
+        $userEntity = UserEntity::createFromBasicPrimitives($firstName, $lastName, $email);
 
         $this->assertSame($firstName, (string) $userEntity->firstName->value);
         $this->assertSame($lastName, (string) $userEntity->lastName->value);
@@ -51,7 +51,7 @@ class UserEntityTest extends TestCase
     ): void {
         $email = 'some@example.com';
 
-        $userEntity = UserEntity::createFromRegisterPrimitives($oldFirstName, $oldLastName, $email);
+        $userEntity = UserEntity::createFromBasicPrimitives($oldFirstName, $oldLastName, $email);
         $updatedUserEntity = $userEntity->updatePersonalInfo($newFirstName, $newLastName);
 
         $this->assertSame($expectedFirstName, $updatedUserEntity->firstName->value);

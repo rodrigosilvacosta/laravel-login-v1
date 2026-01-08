@@ -9,6 +9,7 @@ use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
+use Ramsey\Uuid\Uuid as RamseyUuid;
 
 class RegisterUserUseCase
 {
@@ -18,7 +19,7 @@ class RegisterUserUseCase
 
     public function execute(RegisterUserInputDto $inputDto): RegisterUserOutputDto
     {
-        $userEntity = UserEntity::createFromRegisterPrimitives(
+        $userEntity = UserEntity::createFromBasicPrimitives(
             firstName: $inputDto->firstName,
             lastName: $inputDto->lastName,
             email: $inputDto->email

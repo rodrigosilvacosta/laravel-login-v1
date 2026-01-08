@@ -74,7 +74,7 @@ class LoginUserUseCaseTest extends TestCase
             ->with($plainPassword, $hashedPassword)
             ->willReturn(true);
 
-        $userUuid = UserUuid::fromUuid('123e4567-e89b-12d3-a456-426614174000');
+        $userUuid = UserUuid::fromString('123e4567-e89b-12d3-a456-426614174000');
         $this->mockSecurityUserRepository
             ->expects($this->once())
             ->method('findUserUuidByEmail')

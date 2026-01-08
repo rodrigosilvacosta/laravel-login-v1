@@ -29,6 +29,6 @@ class SecurityUserRepository implements SecurityUserRepositoryInterface
             return null;
         }
 
-        return UserUuid::fromUuid($model->uuid);
+        return UserUuid::fromString($model->uuid);
     }
 }

@@ -5,36 +5,35 @@ namespace App\Domain\User\ValueObjects;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Helpers\Traits\PropertyAccessTrait;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Uuid as RamseyUuid;
+use Ramsey\Uuid\UuidInterface as RamseyUuidInterface;
 
 /**
- * @property string $value
+ * @property RamseyUuidInterface $uuid
+ * @property-read string $value
  */
 final class UserUuid
 {
     use PropertyAccessTrait;
-    /**
-     * @param string $value
-     */
-    public function __construct(private readonly string $value)
+
+    private string $value;
+
+    private function __construct(private readonly RamseyUuidInterface $uuid)
     {
-        $this->validate();
+        $this->value = $this->uuid->toString();
     }
 
-    public static function fromUuid(string $value): self
+    public static function fromString(string $strValue): self
     {
-        return new self($value);
+        if (!RamseyUuid::isValid($strValue)) {
+            throw new AppDomainException(AppDomainExceptionCodeEnum::UUID_INVALID);
+        }
+
+        return new self(RamseyUuid::fromString($strValue));
     }
 
     public static function generate(): self
     {
-        return new self(Uuid::uuid4()->toString());
-    }
-
-    private function validate(): void
-    {
-        if (!Uuid::isValid($this->value)) {
-            throw new AppDomainException(AppDomainExceptionCodeEnum::UUID_INVALID);
-        }
+        return new self(RamseyUuid::uuid4());
     }
 }

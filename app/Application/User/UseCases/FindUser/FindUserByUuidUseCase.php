@@ -15,7 +15,7 @@ class FindUserByUuidUseCase
 
     public function execute(FindUserByUuidInputDto $inputDto): FindUserByUuidOutputDto
     {
-        $userUuid = UserUuid::fromUuid($inputDto->uuid);
+        $userUuid = UserUuid::fromString($inputDto->uuid);
 
         $userEntity = $this->userRepository->findByUuid($userUuid);
 
