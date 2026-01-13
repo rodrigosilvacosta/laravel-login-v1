@@ -35,6 +35,7 @@ class UserUpdateRequest extends AppFormRequest
         return [
             'first_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
             'last_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
+            'uuid' => 'required|string|uuid',
         ];
     }
 
@@ -45,6 +46,7 @@ class UserUpdateRequest extends AppFormRequest
         return new UserUpdateInputDto(
             firstName: $params['first_name'],
             lastName: $params['last_name'],
+            uuid: $params['uuid']
         );
     }
 }

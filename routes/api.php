@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\User\UserFindByUuidController;
 use App\Http\Controllers\Admin\User\UserLoginController;
 use App\Http\Controllers\Admin\User\UserLogoutController;
 use App\Http\Controllers\Admin\User\UserGetProfileController;
+use App\Http\Controllers\Admin\User\UserUpdateController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('.admin')->middleware('auth:sanctum')->group(function () {
@@ -12,6 +13,7 @@ Route::prefix('admin')->name('.admin')->middleware('auth:sanctum')->group(functi
         Route::post('/', UserRegisterController::class)->name('.create');
         Route::get('/uuid/{uuid}', UserFindByUuidController::class)->name('.findByUuid');
         Route::get('/profile', UserGetProfileController::class)->name('.profile');
+        Route::put('/', UserUpdateController::class)->name('.update');
     });
     Route::get('/logout', UserLogoutController::class)->name('.logout');
 });

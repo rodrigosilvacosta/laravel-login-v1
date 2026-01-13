@@ -12,6 +12,11 @@ class UserUpdateOutputDto extends OutputDto
         protected readonly string $lastName,
     ) {}
 
+    public static function createFrom(string $uuid, string $firstName, string $lastName): self
+    {
+        return new self($uuid, $firstName, $lastName);
+    }
+
     public function toArray(): array
     {
         return [

@@ -18,7 +18,7 @@ final class UserUuid
 
     private string $value;
 
-    private function __construct(private readonly RamseyUuidInterface $uuid)
+    private function __construct(private RamseyUuidInterface $uuid)
     {
         $this->value = $this->uuid->toString();
     }

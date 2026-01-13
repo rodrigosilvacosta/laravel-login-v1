@@ -54,10 +54,9 @@ class UserRespository implements UserRepositoryInterface
 
     public function update(UserEntity $userEntity): int
     {
-        $affectedRows = User::where('uuid', $userEntity->uuid)->update([
+        $affectedRows = User::where('uuid', $userEntity->uuid->value)->update([
             'first_name' => $userEntity->firstName->value,
-            'last_name' => $userEntity->lastName->value,
-            'email' => $userEntity->email->value,
+            'last_name' => $userEntity->lastName->value
         ]);
 
         return $affectedRows;
