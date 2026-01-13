@@ -15,7 +15,7 @@ class UserRegisterControllerTest extends TestCase
 
     private const URI_TEST = 'api/admin/users';
 
-    public function test_user_register_controller(): void
+    public function test_user_register_controller_success(): void
     {
         $this->createValidAdminUser();
 
@@ -30,6 +30,11 @@ class UserRegisterControllerTest extends TestCase
         $response = $this->postJson(self::URI_TEST, $data);
 
         $response->assertStatus(Response::HTTP_CREATED);
+        $this->assertDatabaseHas('users', [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+        ]);
         $response->assertJsonStructure(['uuid']);
         $this->assertIsString($response->json('uuid'));
     }

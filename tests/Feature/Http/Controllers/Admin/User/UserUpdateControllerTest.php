@@ -39,6 +39,11 @@ class UserUpdateControllerTest extends TestCase
         $response = $this->putJson(self::URI_TEST, $data);
 
         $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseHas('users', [
+            'uuid' => $user->uuid,
+            'first_name' => $newName,
+            'last_name' => $newLastName,
+        ]);
         $response->assertJson([
             'uuid' => $user->uuid,
             'first_name' => $newName,
