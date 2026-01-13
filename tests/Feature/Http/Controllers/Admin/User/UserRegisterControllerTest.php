@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Tests\Helpers\Feature\SanctumUserCreatorTrait;
 use Tests\TestCase;
 
-class UserCreateControllerTest extends TestCase
+class UserRegisterControllerTest extends TestCase
 {
     use RefreshDatabase;
     use SanctumUserCreatorTrait;
 
     private const URI_TEST = 'api/admin/users';
 
-    public function test_user_create_controller(): void
+    public function test_user_register_controller(): void
     {
         $this->createValidAdminUser();
 
@@ -34,7 +34,7 @@ class UserCreateControllerTest extends TestCase
         $this->assertIsString($response->json('uuid'));
     }
 
-    public function test_user_create_controller_not_authenticated(): void
+    public function test_user_register_controller_not_authenticated(): void
     {
         $token = 'Bearer invalid_token';
 
@@ -52,7 +52,7 @@ class UserCreateControllerTest extends TestCase
     }
 
     #[DataProvider('invalid_request_data_provider')]
-    public function test_user_create_controller_invalid_request(
+    public function test_user_register_controller_invalid_request(
         array $data,
         array $expectedErrors
     ): void {

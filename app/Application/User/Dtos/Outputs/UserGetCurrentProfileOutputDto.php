@@ -10,22 +10,27 @@ use App\Application\Dto\OutputDto;
  * @property-read string $lastName
  * @property-read string $email
  */
-class FindUserByUuidOutputDto extends OutputDto
+class UserGetCurrentProfileOutputDto extends OutputDto
 {
     public function __construct(
         protected readonly string $uuid,
         protected readonly string $firstName,
         protected readonly string $lastName,
-        protected readonly string $email
+        protected readonly string $email,
     ) {}
 
     public static function createFrom(
         string $uuid,
         string $firstName,
         string $lastName,
-        string $email
+        string $email,
     ): self {
-        return new self($uuid, $firstName, $lastName, $email);
+        return new self(
+            uuid: $uuid,
+            firstName: $firstName,
+            lastName: $lastName,
+            email: $email,
+        );
     }
 
     public function toArray(): array

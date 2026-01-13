@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Application\User\Dtos\Inputs\GetCurrentUserProfileInputDto;
-use App\Application\User\UseCases\Profile\GetCurrentUserProfileUseCase;
+use App\Application\User\Dtos\Inputs\UserGetCurrentProfileInputDto;
+use App\Application\User\UseCases\UserGetCurrentProfileUseCase;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserGetProfileController extends Controller
 {
-    public function __construct(private GetCurrentUserProfileUseCase $useCase) {}
+    public function __construct(private UserGetCurrentProfileUseCase $useCase) {}
 
     public function __invoke(Request $request): Response
     {
         $user = $request->user();
 
         if ($user) {
-            $outputDto = $this->useCase->execute(GetCurrentUserProfileInputDto::createFrom(
+            $outputDto = $this->useCase->execute(UserGetCurrentProfileInputDto::createFrom(
                 uuid: $user->uuid,
                 firstName: $user->first_name,
                 lastName: $user->last_name,

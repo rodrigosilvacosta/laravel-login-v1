@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Application\User\UseCases\FindUser;
+namespace Tests\Unit\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\FindUserByUuidInputDto;
-use App\Application\User\Dtos\Outputs\FindUserByUuidOutputDto;
-use App\Application\User\UseCases\FindUser\FindUserByUuidUseCase;
+use App\Application\User\Dtos\Inputs\UserFindByUuidInputDto;
+use App\Application\User\Dtos\Outputs\UserFindByUuidOutputDto;
+use App\Application\User\UseCases\UserFindByUuidUseCase;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Entities\UserEntity;
@@ -16,22 +16,22 @@ use App\Domain\Shared\ValueObjects\LastName;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class FindUserByUuidUseCaseTest extends TestCase
+class UserFindByUuidUseCaseTest extends TestCase
 {
     private MockObject&UserRepositoryInterface $mockUserRepository;
-    private FindUserByUuidUseCase $findUserByUuidUseCase;
+    private UserFindByUuidUseCase $userFindByUuidUseCase;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->mockUserRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->findUserByUuidUseCase = new FindUserByUuidUseCase($this->mockUserRepository);
+        $this->userFindByUuidUseCase = new UserFindByUuidUseCase($this->mockUserRepository);
     }
 
-    public function test_find_user_by_uuid_use_case_success(): void
+    public function test_user_find_by_uuid_use_case_success(): void
     {
         $uuidString = '123e4567-e89b-12d3-a456-426614174000';
-        $inputDto = new FindUserByUuidInputDto(uuid: $uuidString);
+        $inputDto = new UserFindByUuidInputDto(uuid: $uuidString);
         $userUuid = UserUuid::fromString($uuidString);
 
         $userEntity = new UserEntity(
@@ -48,9 +48,9 @@ class FindUserByUuidUseCaseTest extends TestCase
             ->with($userUuid)
             ->willReturn($userEntity);
 
-        $outputDto = $this->findUserByUuidUseCase->execute($inputDto);
+        $outputDto = $this->userFindByUuidUseCase->execute($inputDto);
 
-        $this->assertInstanceOf(FindUserByUuidOutputDto::class, $outputDto);
+        $this->assertInstanceOf(UserFindByUuidOutputDto::class, $outputDto);
         $this->assertSame([
             'uuid' => $uuidString,
             'first_name' => 'John',
@@ -59,10 +59,10 @@ class FindUserByUuidUseCaseTest extends TestCase
         ], $outputDto->toArray());
     }
 
-    public function test_find_user_by_uuid_use_case_when_user_not_found(): void
+    public function test_user_find_by_uuid_use_case_when_user_not_found(): void
     {
         $uuidString = '123e4567-e89b-12d3-a456-426614174000';
-        $inputDto = new FindUserByUuidInputDto(uuid: $uuidString);
+        $inputDto = new UserFindByUuidInputDto(uuid: $uuidString);
         $userUuid = UserUuid::fromString($uuidString);
 
         $this->mockUserRepository
@@ -74,6 +74,6 @@ class FindUserByUuidUseCaseTest extends TestCase
         $this->expectException(AppDomainException::class);
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_NOT_FOUND->value);
 
-        $this->findUserByUuidUseCase->execute($inputDto);
+        $this->userFindByUuidUseCase->execute($inputDto);
     }
 }

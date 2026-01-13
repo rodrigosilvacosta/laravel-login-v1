@@ -7,7 +7,7 @@ use App\Application\Dto\OutputDto;
 /**
  * @property-read string $uuid
  */
-class RegisterUserOutputDto extends OutputDto
+class UserRegisterOutputDto extends OutputDto
 {
     public function __construct(
         protected readonly string $uuid

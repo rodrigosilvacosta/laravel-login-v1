@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Application\User\UseCases\LoginUser;
+namespace Tests\Unit\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\LoginUserInputDto;
-use App\Application\User\Dtos\Outputs\LoginUserOutputDto;
-use App\Application\User\UseCases\LoginUser\LoginUserUseCase;
+use App\Application\User\Dtos\Inputs\UserLoginInputDto;
+use App\Application\User\Dtos\Outputs\UserLoginOutputDto;
+use App\Application\User\UseCases\UserLoginUseCase;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Security\Repositories\SecurityUserRepositoryInterface;
@@ -19,12 +19,12 @@ use App\Domain\User\ValueObjects\UserUuid;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class LoginUserUseCaseTest extends TestCase
+class UserLoginUseCaseTest extends TestCase
 {
     private MockObject&SecurityUserRepositoryInterface $mockSecurityUserRepository;
     private MockObject&PasswordVerifyServiceInterface $mockPasswordVerifyService;
     private MockObject&UserAccessTokenServiceInterface $mockUserAccessTokenService;
-    private LoginUserUseCase $loginUserUseCase;
+    private UserLoginUseCase $userLoginUseCase;
 
     protected function setUp(): void
     {
@@ -34,20 +34,20 @@ class LoginUserUseCaseTest extends TestCase
         $this->mockPasswordVerifyService = $this->createMock(PasswordVerifyServiceInterface::class);
         $this->mockUserAccessTokenService = $this->createMock(UserAccessTokenServiceInterface::class);
 
-        $this->loginUserUseCase = new LoginUserUseCase(
+        $this->userLoginUseCase = new UserLoginUseCase(
             $this->mockSecurityUserRepository,
             $this->mockPasswordVerifyService,
             $this->mockUserAccessTokenService
         );
     }
 
-    public function test_login_user_use_case(): void
+    public function test_user_login_use_case(): void
     {
         $emailInput = 'test@example.com';
         $passwordInput = 'password123';
         $deviceNameInput = 'Test Device';
 
-        $inputDto = new LoginUserInputDto(
+        $inputDto = new UserLoginInputDto(
             email: $emailInput,
             password: $passwordInput,
             deviceName: $deviceNameInput
@@ -88,19 +88,19 @@ class LoginUserUseCaseTest extends TestCase
             ->with($userUuid, $deviceName)
             ->willReturn($accessToken);
 
-        $outputDto = $this->loginUserUseCase->execute($inputDto);
+        $outputDto = $this->userLoginUseCase->execute($inputDto);
 
-        $this->assertInstanceOf(LoginUserOutputDto::class, $outputDto);
+        $this->assertInstanceOf(UserLoginOutputDto::class, $outputDto);
         $this->assertSame(['token' => $accessToken->value], $outputDto->toArray());
     }
 
-    public function test_login_user_use_case_user_not_found(): void
+    public function test_user_login_use_case_user_not_found(): void
     {
         $emailInput = 'test@example.com';
         $passwordInput = 'password123';
         $deviceNameInput = 'Test Device';
 
-        $inputDto = new LoginUserInputDto(
+        $inputDto = new UserLoginInputDto(
             email: $emailInput,
             password: $passwordInput,
             deviceName: $deviceNameInput
@@ -135,16 +135,16 @@ class LoginUserUseCaseTest extends TestCase
         $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->getMessage());
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->value);
 
-        $this->loginUserUseCase->execute($inputDto);
+        $this->userLoginUseCase->execute($inputDto);
     }
 
-    public function test_login_user_use_case_wrong_password(): void
+    public function test_user_login_use_case_wrong_password(): void
     {
         $emailInput = 'test@example.com';
         $passwordInput = 'password123';
         $deviceNameInput = 'Test Device';
 
-        $inputDto = new LoginUserInputDto(
+        $inputDto = new UserLoginInputDto(
             email: $emailInput,
             password: $passwordInput,
             deviceName: $deviceNameInput
@@ -182,6 +182,6 @@ class LoginUserUseCaseTest extends TestCase
         $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->getMessage());
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE->value);
 
-        $this->loginUserUseCase->execute($inputDto);
+        $this->userLoginUseCase->execute($inputDto);
     }
 }

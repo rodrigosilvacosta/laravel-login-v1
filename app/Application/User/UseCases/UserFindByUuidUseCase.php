@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Application\User\UseCases\FindUser;
+namespace App\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\FindUserByUuidInputDto;
-use App\Application\User\Dtos\Outputs\FindUserByUuidOutputDto;
+use App\Application\User\Dtos\Inputs\UserFindByUuidInputDto;
+use App\Application\User\Dtos\Outputs\UserFindByUuidOutputDto;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
 
-class FindUserByUuidUseCase
+class UserFindByUuidUseCase
 {
     public function __construct(private UserRepositoryInterface $userRepository) {}
 
-    public function execute(FindUserByUuidInputDto $inputDto): FindUserByUuidOutputDto
+    public function execute(UserFindByUuidInputDto $inputDto): UserFindByUuidOutputDto
     {
         $userUuid = UserUuid::fromString($inputDto->uuid);
 
@@ -23,7 +23,7 @@ class FindUserByUuidUseCase
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_NOT_FOUND);
         }
 
-        return FindUserByUuidOutputDto::createFrom(
+        return UserFindByUuidOutputDto::createFrom(
             uuid: $userEntity->uuid->value,
             firstName: $userEntity->firstName->value,
             lastName: $userEntity->lastName->value,

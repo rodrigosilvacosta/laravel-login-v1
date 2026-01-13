@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\User\UseCases\UpdateUser;
+namespace App\Application\User\UseCases;
 
 use App\Domain\User\Repositories\UserRepositoryInterface;
 
-class UpdateUserUseCase
+class UserUpdateUseCase
 {
     public function __construct(
         UserRepositoryInterface $userRepository

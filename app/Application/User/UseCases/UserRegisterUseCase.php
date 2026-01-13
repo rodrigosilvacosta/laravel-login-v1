@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Application\User\UseCases\RegisterUser;
+namespace App\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\RegisterUserInputDto;
-use App\Application\User\Dtos\Outputs\RegisterUserOutputDto;
+use App\Application\User\Dtos\Inputs\UserRegisterInputDto;
+use App\Application\User\Dtos\Outputs\UserRegisterOutputDto;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
-use Ramsey\Uuid\Uuid as RamseyUuid;
 
-class RegisterUserUseCase
+class UserRegisterUseCase
 {
     public function __construct(
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function execute(RegisterUserInputDto $inputDto): RegisterUserOutputDto
+    public function execute(UserRegisterInputDto $inputDto): UserRegisterOutputDto
     {
         $userEntity = UserEntity::createFromBasicPrimitives(
             firstName: $inputDto->firstName,
@@ -40,6 +39,6 @@ class RegisterUserUseCase
          * @todo enviar email de confirmação
          */
 
-        return RegisterUserOutputDto::createFrom($userEntity->uuid->value);
+        return UserRegisterOutputDto::createFrom($userEntity->uuid->value);
     }
 }

@@ -7,7 +7,7 @@ use App\Application\Dto\InputDto;
 /**
  * @property-read string $uuid
  */
-class FindUserByUuidInputDto extends InputDto
+class UserFindByUuidInputDto extends InputDto
 {
     public function __construct(
         protected readonly string $uuid

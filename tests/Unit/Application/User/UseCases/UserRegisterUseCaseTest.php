@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Application\User\UseCases\RegisterUser;
+namespace Tests\Unit\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\RegisterUserInputDto;
-use App\Application\User\Dtos\Outputs\RegisterUserOutputDto;
-use App\Application\User\UseCases\RegisterUser\RegisterUserUseCase;
+use App\Application\User\Dtos\Inputs\UserRegisterInputDto;
+use App\Application\User\Dtos\Outputs\UserRegisterOutputDto;
+use App\Application\User\UseCases\UserRegisterUseCase;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
@@ -13,22 +13,22 @@ use App\Domain\User\Repositories\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class RegisterUserUseCaseTest extends TestCase
+class UserRegisterUseCaseTest extends TestCase
 {
     private MockObject&UserRepositoryInterface $mockUserRepository;
-    private RegisterUserUseCase $registerUserUseCase;
+    private UserRegisterUseCase $userRegisterUseCase;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->mockUserRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->registerUserUseCase = new RegisterUserUseCase($this->mockUserRepository);
+        $this->userRegisterUseCase = new UserRegisterUseCase($this->mockUserRepository);
     }
 
-    public function test_register_user_use_case_success(): void
+    public function test_user_register_use_case_success(): void
     {
-        $inputDto = new RegisterUserInputDto(
+        $inputDto = new UserRegisterInputDto(
             firstName: 'John',
             lastName: 'Doe',
             email: 'john@example.com',
@@ -61,16 +61,16 @@ class RegisterUserUseCaseTest extends TestCase
                 );
             });
 
-        $outputDto = $this->registerUserUseCase->execute($inputDto);
+        $outputDto = $this->userRegisterUseCase->execute($inputDto);
 
-        $this->assertInstanceOf(RegisterUserOutputDto::class, $outputDto);
+        $this->assertInstanceOf(UserRegisterOutputDto::class, $outputDto);
         $this->assertIsString($uuidCallback);
         $this->assertSame(['uuid' => $uuidCallback], $outputDto->toArray());
     }
 
     public function test_register_user_use_case_when_creation_fails(): void
     {
-        $inputDto = new RegisterUserInputDto(
+        $inputDto = new UserRegisterInputDto(
             firstName: 'John',
             lastName: 'Doe',
             email: 'john@example.com',
@@ -85,6 +85,6 @@ class RegisterUserUseCaseTest extends TestCase
         $this->expectException(AppDomainException::class);
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_CREATE_FAILURE->value);
 
-        $this->registerUserUseCase->execute($inputDto);
+        $this->userRegisterUseCase->execute($inputDto);
     }
 }

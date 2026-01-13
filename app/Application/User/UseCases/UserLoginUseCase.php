@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\User\UseCases\LoginUser;
+namespace App\Application\User\UseCases;
 
-use App\Application\User\Dtos\Inputs\LoginUserInputDto;
-use App\Application\User\Dtos\Outputs\LoginUserOutputDto;
+use App\Application\User\Dtos\Inputs\UserLoginInputDto;
+use App\Application\User\Dtos\Outputs\UserLoginOutputDto;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Security\Repositories\SecurityUserRepositoryInterface;
@@ -13,7 +13,7 @@ use App\Domain\Shared\Security\Service\UserAccessTokenServiceInterface;
 use App\Domain\Shared\Security\ValueObjects\DeviceName;
 use App\Domain\Shared\ValueObjects\Email;
 
-class LoginUserUseCase
+class UserLoginUseCase
 {
     public function __construct(
         private SecurityUserRepositoryInterface $securityUserRepository,
@@ -21,7 +21,7 @@ class LoginUserUseCase
         private UserAccessTokenServiceInterface $userAccessTokenService
     ) {}
 
-    public function execute(LoginUserInputDto $inputDto): LoginUserOutputDto
+    public function execute(UserLoginInputDto $inputDto): UserLoginOutputDto
     {
         $email = Email::create($inputDto->email);
         $plainPassword = PlainPassword::create($inputDto->password);
@@ -41,6 +41,6 @@ class LoginUserUseCase
         $userUuid = $this->securityUserRepository->findUserUuidByEmail($email);
         $accessToken = $this->userAccessTokenService->generateToken($userUuid, $deviceName);
 
-        return LoginUserOutputDto::createFrom($accessToken->value);
+        return UserLoginOutputDto::createFrom($accessToken->value);
     }
 }

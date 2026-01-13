@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Application\User\Dtos\Inputs\LoginUserInputDto;
+use App\Application\User\Dtos\Inputs\UserLoginInputDto;
 use App\Http\Requests\AppFormRequest;
 
 class UserLoginRequest extends AppFormRequest
@@ -29,9 +29,9 @@ class UserLoginRequest extends AppFormRequest
         ];
     }
 
-    public function toDto(): LoginUserInputDto
+    public function toDto(): UserLoginInputDto
     {
-        return new LoginUserInputDto(
+        return new UserLoginInputDto(
             email: $this->input('email'),
             password: $this->input('password'),
             deviceName: $this->input('device_name'),

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Application\User\Dtos\Inputs\RegisterUserInputDto;
+use App\Application\User\Dtos\Inputs\UserUpdateInputDto;
 use App\Http\Requests\AppFormRequest;
 
-class PostUserRequest extends AppFormRequest
+class UserUpdateRequest extends AppFormRequest
 {
     /**
      * ^  inicio da validação
@@ -35,20 +35,16 @@ class PostUserRequest extends AppFormRequest
         return [
             'first_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
             'last_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
-            'email' => 'required|min:3|max:255|email|unique:users,email',
-            'password' => 'required|string|min:8|max:64|confirmed',
         ];
     }
 
-    public function toDto(): RegisterUserInputDto
+    public function toDto(): UserUpdateInputDto
     {
         $params = $this->safe()->all();
 
-        return new RegisterUserInputDto(
+        return new UserUpdateInputDto(
             firstName: $params['first_name'],
             lastName: $params['last_name'],
-            email: $params['email'],
-            password: $params['password'],
         );
     }
 }

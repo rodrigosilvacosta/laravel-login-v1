@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Application\User\UseCases\LoginUser\LoginUserUseCase;
+use App\Application\User\UseCases\UserLoginUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserLoginRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserLoginController extends Controller
 {
-    public function __construct(private LoginUserUseCase $loginUserUseCase) {}
+    public function __construct(private UserLoginUseCase $userLoginUseCase) {}
     /**
      * Handle the incoming request.
      */
     public function __invoke(UserLoginRequest $request)
     {
         $dto = $request->toDto();
-        $outputDto = $this->loginUserUseCase->execute($dto);
+        $outputDto = $this->userLoginUseCase->execute($dto);
 
         return response()->json($outputDto->toArray(), Response::HTTP_OK);
     }

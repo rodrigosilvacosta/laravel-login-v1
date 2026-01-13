@@ -7,7 +7,7 @@ use App\Application\Dto\OutputDto;
 /**
  * @property-read string $token
  */
-class LoginUserOutputDto extends OutputDto
+class UserLoginOutputDto extends OutputDto
 {
     public function __construct(
         public readonly string $token,

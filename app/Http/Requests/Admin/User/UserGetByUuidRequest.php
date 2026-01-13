@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Application\User\Dtos\Inputs\FindUserByUuidInputDto;
+use App\Application\User\Dtos\Inputs\UserFindByUuidInputDto;
 use App\Http\Requests\AppFormRequest;
 
-class GetUserByUuidRequest extends AppFormRequest
+class UserGetByUuidRequest extends AppFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,9 @@ class GetUserByUuidRequest extends AppFormRequest
         ];
     }
 
-    public function toDto(): FindUserByUuidInputDto
+    public function toDto(): UserFindByUuidInputDto
     {
-        return new FindUserByUuidInputDto(
+        return new UserFindByUuidInputDto(
             uuid: $this->validated('uuid'),
         );
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\User\Dtos\Outputs;
+namespace App\Application\User\Dtos\Inputs;
 
-use App\Application\Dto\OutputDto;
+use App\Application\Dto\InputDto;
 
 /**
  * @property-read string $uuid
@@ -10,7 +10,8 @@ use App\Application\Dto\OutputDto;
  * @property-read string $lastName
  * @property-read string $email
  */
-class GetCurrentUserProfileOutputDto extends OutputDto
+
+class UserGetCurrentProfileInputDto extends InputDto
 {
     public function __construct(
         protected readonly string $uuid,
@@ -31,15 +32,5 @@ class GetCurrentUserProfileOutputDto extends OutputDto
             lastName: $lastName,
             email: $email,
         );
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'uuid' => $this->uuid,
-            'first_name' => $this->firstName,
-            'last_name' => $this->lastName,
-            'email' => $this->email,
-        ];
     }
 }

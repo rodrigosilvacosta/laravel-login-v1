@@ -9,7 +9,7 @@ use App\Application\Dto\InputDto;
  * @property-read string $password
  * @property-read string $deviceName
  */
-class LoginUserInputDto extends InputDto
+class UserLoginInputDto extends InputDto
 {
     public function __construct(
         protected readonly string $email,
