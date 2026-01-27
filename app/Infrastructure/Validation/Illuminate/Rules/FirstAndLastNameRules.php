@@ -20,7 +20,7 @@ class FirstAndLastNameRules
             'string',
             'min:2',
             'max:45',
-            'regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME
+            'regex:'.self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
         ];
     }
 
@@ -31,7 +31,7 @@ class FirstAndLastNameRules
             'string',
             'min:1',
             'max:45',
-            'regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME
+            'regex:'.self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
         ];
     }
 }

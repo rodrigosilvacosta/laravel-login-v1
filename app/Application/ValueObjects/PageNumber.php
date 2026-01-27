@@ -14,6 +14,7 @@ final class PageNumber
     use PropertyAccessTrait;
 
     private const MIN = 1;
+
     private const MAX = 100;
 
     private function __construct(

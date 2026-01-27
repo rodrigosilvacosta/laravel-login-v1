@@ -16,7 +16,7 @@ class LaravelUserAccessTokenService implements UserAccessTokenServiceInterface
     {
         $accessToken = $this->createUserAccessToken($userUuid, $deviceName);
 
-        if (!$accessToken) {
+        if (! $accessToken) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_ACCESS_TOKEN_CREATION_FAILURE);
         }
 

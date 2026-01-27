@@ -19,7 +19,7 @@ class UserFindByUuidUseCase
 
         $userEntity = $this->userRepository->findByUuid($userUuid);
 
-        if (!$userEntity) {
+        if (! $userEntity) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_NOT_FOUND);
         }
 

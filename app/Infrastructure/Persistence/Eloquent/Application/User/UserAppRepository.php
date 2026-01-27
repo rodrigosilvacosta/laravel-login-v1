@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Persistence\Eloquent\Application\User;
 
-use App\Application\User\Repositories\UserAppRepositoryInterface;
 use App\Application\User\Query\Criteria\UserListCriteria;
 use App\Application\User\Repositories\Dtos\PaginatedResultDto;
+use App\Application\User\Repositories\UserAppRepositoryInterface;
 use App\Application\ValueObjects\PageNumber;
 use App\Application\ValueObjects\PerPage;
 use App\Models\User;
@@ -24,13 +24,13 @@ class UserAppRepository implements UserAppRepositoryInterface
             'email',
         ])->where(function ($query) use ($criteria) {
             if ($criteria->firstName) {
-                $query->where('first_name', 'LIKE', '%' . $criteria->firstName . '%');
+                $query->where('first_name', 'LIKE', '%'.$criteria->firstName.'%');
             }
             if ($criteria->lastName) {
-                $query->where('last_name', 'LIKE', '%' . $criteria->lastName . '%');
+                $query->where('last_name', 'LIKE', '%'.$criteria->lastName.'%');
             }
             if ($criteria->email) {
-                $query->where('email', 'LIKE', '%' . $criteria->email . '%');
+                $query->where('email', 'LIKE', '%'.$criteria->email.'%');
             }
         })
             ->paginate(

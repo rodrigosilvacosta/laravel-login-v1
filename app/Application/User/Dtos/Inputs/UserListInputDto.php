@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Application\User\Dtos\Inputs;
 
 use App\Application\Dto\InputDto;

@@ -36,6 +36,7 @@ class MakeDomain extends Command
 
         if ($this->files->exists($path)) {
             $this->error("The {$name} already exists!");
+
             return;
         }
 

@@ -10,15 +10,13 @@ use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
-use App\Domain\Shared\ValueObjects\Email;
-use App\Domain\Shared\ValueObjects\FirstName;
-use App\Domain\Shared\ValueObjects\LastName;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class UserFindByUuidUseCaseTest extends TestCase
 {
     private MockObject&UserRepositoryInterface $mockUserRepository;
+
     private UserFindByUuidUseCase $userFindByUuidUseCase;
 
     protected function setUp(): void
@@ -43,7 +41,7 @@ class UserFindByUuidUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuidString))
+            ->with($this->callback(fn (UserUuid $u) => $u->value === $uuidString))
             ->willReturn($userEntity);
 
         $outputDto = $this->userFindByUuidUseCase->execute($inputDto);
@@ -53,7 +51,7 @@ class UserFindByUuidUseCaseTest extends TestCase
             'uuid' => $uuidString,
             'first_name' => 'John',
             'last_name' => 'Doe',
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ], $outputDto->toArray());
     }
 
@@ -65,7 +63,7 @@ class UserFindByUuidUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuidString))
+            ->with($this->callback(fn (UserUuid $u) => $u->value === $uuidString))
             ->willReturn(null);
 
         $this->expectException(AppDomainException::class);

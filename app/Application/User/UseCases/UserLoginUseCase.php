@@ -7,10 +7,10 @@ use App\Application\User\Dtos\Outputs\UserLoginOutputDto;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Security\Repositories\SecurityUserRepositoryInterface;
-use App\Domain\Shared\Security\ValueObjects\PlainPassword;
 use App\Domain\Shared\Security\Service\PasswordVerifyServiceInterface;
 use App\Domain\Shared\Security\Service\UserAccessTokenServiceInterface;
 use App\Domain\Shared\Security\ValueObjects\DeviceName;
+use App\Domain\Shared\Security\ValueObjects\PlainPassword;
 use App\Domain\Shared\ValueObjects\Email;
 
 class UserLoginUseCase
@@ -28,13 +28,13 @@ class UserLoginUseCase
         $deviceName = DeviceName::create($inputDto->deviceName);
         $hashedPassword = $this->securityUserRepository->findHashedPasswordByEmail($email);
 
-        if (!$hashedPassword) {
+        if (! $hashedPassword) {
             $this->passwordVerifyService->verifyForTimingAttackMitigation();
 
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE);
         }
 
-        if (!$this->passwordVerifyService->verify($plainPassword, $hashedPassword)) {
+        if (! $this->passwordVerifyService->verify($plainPassword, $hashedPassword)) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_AUTHENTICATION_FAILURE);
         }
 

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UserLoginController extends Controller
 {
     public function __construct(private UserLoginUseCase $userLoginUseCase) {}
+
     /**
      * Handle the incoming request.
      */

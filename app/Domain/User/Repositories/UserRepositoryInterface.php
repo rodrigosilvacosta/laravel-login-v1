@@ -10,7 +10,10 @@ use App\Domain\User\ValueObjects\UserUuid;
 interface UserRepositoryInterface
 {
     public function createWithPassword(UserEntity $userEntity, PlainPassword $plainPassword): UserEntity;
+
     public function findByUuid(UserUuid $uuid): ?UserEntity;
+
     public function update(UserEntity $userEntity): int;
+
     public function existsByEmail(Email $email): bool;
 }

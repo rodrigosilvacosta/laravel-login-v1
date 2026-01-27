@@ -15,7 +15,7 @@ class UserGetCurrentProfileUseCaseTest extends TestCase
     {
         parent::setUp();
 
-        $this->userGetCurrentProfileUseCase = new UserGetCurrentProfileUseCase();
+        $this->userGetCurrentProfileUseCase = new UserGetCurrentProfileUseCase;
     }
 
     public function test_get_current_user_profile_use_case_success(): void

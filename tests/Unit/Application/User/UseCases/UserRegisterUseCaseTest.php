@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 class UserRegisterUseCaseTest extends TestCase
 {
     private MockObject&UserRepositoryInterface $mockUserRepository;
+
     private UserRegisterUseCase $userRegisterUseCase;
 
     protected function setUp(): void

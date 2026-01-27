@@ -115,7 +115,7 @@ class UserRegisterControllerTest extends TestCase
                 'data' => [
                     'first_name' => str_repeat('a', 46),
                     'last_name' => str_repeat('b', 46),
-                    'email' => str_repeat('c', 245) . '@example.com',
+                    'email' => str_repeat('c', 245).'@example.com',
                     'password' => str_repeat('1', 65),
                     'password_confirmation' => str_repeat('1', 65),
                 ],

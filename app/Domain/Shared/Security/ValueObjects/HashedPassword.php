@@ -6,10 +6,9 @@ use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\Shared\Helpers\Traits\PropertyAccessTrait;
 
-/** 
- * @property string $value 
+/**
+ * @property string $value
  */
-
 final class HashedPassword
 {
     use PropertyAccessTrait;

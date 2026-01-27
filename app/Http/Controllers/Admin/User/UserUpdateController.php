@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\User;
 
+use App\Application\User\UseCases\UserUpdateUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
-use App\Application\User\UseCases\UserUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class UserUpdateController extends Controller

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Application\User\UseCases;
 
-use App\Application\User\Query\Criteria\UserListCriteria;
 use App\Application\User\Dtos\Inputs\UserListInputDto;
 use App\Application\User\Dtos\Outputs\MappedDataOutputDto;
 use App\Application\User\Mappers\UserListMapper;
+use App\Application\User\Query\Criteria\UserListCriteria;
 use App\Application\User\Repositories\Dtos\PaginatedResultDto;
 use App\Application\User\Repositories\UserAppRepositoryInterface;
 use App\Application\User\UseCases\UserListUseCase;
@@ -17,6 +17,7 @@ use Tests\TestCase;
 class UserListUseCaseTest extends TestCase
 {
     private UserAppRepositoryInterface&MockObject $mockUserAppRepository;
+
     private UserListUseCase $useCase;
 
     protected function setUp(): void

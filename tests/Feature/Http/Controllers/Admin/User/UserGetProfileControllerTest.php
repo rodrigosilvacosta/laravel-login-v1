@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Http\Controllers\Admin\User;
 
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Helpers\Feature\SanctumUserCreatorTrait;
 use Tests\TestCase;
 
 class UserGetProfileControllerTest extends TestCase
 {
-    use WithFaker;
     use RefreshDatabase;
     use SanctumUserCreatorTrait;
+    use WithFaker;
 
     private const URI_TEST = 'api/admin/users/profile';
 

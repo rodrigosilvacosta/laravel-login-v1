@@ -25,14 +25,14 @@ class UserListMapper implements MapperInterface
             'per_page' => $perPage,
             'current_page' => $currentPage,
             'last_page' => $lastPage,
-            'users' => self::mapUsers($rows)
+            'users' => self::mapUsers($rows),
         ]);
     }
 
     private static function mapUsers(array $rows): array
     {
         return array_map(
-            fn($row) => [
+            fn ($row) => [
                 'first_name' => $row['first_name'],
                 'last_name' => $row['last_name'],
                 'email' => $row['email'],

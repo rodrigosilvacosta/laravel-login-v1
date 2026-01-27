@@ -9,5 +9,6 @@ use App\Domain\User\ValueObjects\UserUuid;
 interface SecurityUserRepositoryInterface
 {
     public function findHashedPasswordByEmail(Email $email): ?HashedPassword;
+
     public function findUserUuidByEmail(Email $email): ?UserUuid;
 }

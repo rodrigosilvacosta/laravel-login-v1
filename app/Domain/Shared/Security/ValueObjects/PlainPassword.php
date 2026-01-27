@@ -14,6 +14,7 @@ final class PlainPassword
     use PropertyAccessTrait;
 
     private const MIN_LENGTH = 8;
+
     private const MAX_LENGTH = 64;
 
     public function __construct(private readonly string $value)

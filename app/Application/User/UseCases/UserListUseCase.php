@@ -2,13 +2,13 @@
 
 namespace App\Application\User\UseCases;
 
-use App\Application\User\Query\Criteria\UserListCriteria;
 use App\Application\User\Dtos\Inputs\UserListInputDto;
 use App\Application\User\Dtos\Outputs\MappedDataOutputDto;
 use App\Application\User\Mappers\UserListMapper;
+use App\Application\User\Query\Criteria\UserListCriteria;
+use App\Application\User\Repositories\UserAppRepositoryInterface;
 use App\Application\ValueObjects\PageNumber;
 use App\Application\ValueObjects\PerPage;
-use App\Application\User\Repositories\UserAppRepositoryInterface;
 
 class UserListUseCase
 {

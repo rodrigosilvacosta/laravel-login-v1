@@ -25,7 +25,7 @@ final class UserUuid
 
     public static function fromString(string $strValue): self
     {
-        if (!RamseyUuid::isValid($strValue)) {
+        if (! RamseyUuid::isValid($strValue)) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::UUID_INVALID);
         }
 

@@ -6,10 +6,10 @@ use App\Application\User\Dtos\Inputs\UserRegisterInputDto;
 use App\Application\User\Dtos\Outputs\UserRegisterOutputDto;
 use App\Domain\Shared\Exceptions\AppDomainException;
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
-use App\Domain\User\Entities\UserEntity;
-use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
 use App\Domain\Shared\ValueObjects\Email;
+use App\Domain\User\Entities\UserEntity;
+use App\Domain\User\Repositories\UserRepositoryInterface;
 
 class UserRegisterUseCase
 {

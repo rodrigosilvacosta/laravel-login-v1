@@ -10,7 +10,6 @@ use App\Application\Dto\InputDto;
  * @property-read string $lastName
  * @property-read string $email
  */
-
 class UserGetCurrentProfileInputDto extends InputDto
 {
     public function __construct(

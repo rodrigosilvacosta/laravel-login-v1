@@ -12,9 +12,9 @@ use Tests\TestCase;
 
 class UserListControllerTest extends TestCase
 {
-    use WithFaker;
     use RefreshDatabase;
     use SanctumUserCreatorTrait;
+    use WithFaker;
 
     private const URI_TEST = 'api/admin/users';
 
@@ -37,7 +37,7 @@ class UserListControllerTest extends TestCase
             'page' => $page,
             'per_page' => $perPage,
         ];
-        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure([
@@ -47,7 +47,7 @@ class UserListControllerTest extends TestCase
                     'first_name',
                     'last_name',
                     'email',
-                ]
+                ],
             ],
             'last_page',
             'total',
@@ -79,7 +79,7 @@ class UserListControllerTest extends TestCase
             'per_page' => $perPage,
         ];
 
-        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
             'last_page' => (int) ceil($totalUsers / $perPage),
@@ -97,7 +97,7 @@ class UserListControllerTest extends TestCase
         array $expectedUsers
     ): void {
         $users = collect($dataUsers)
-            ->map(fn($data) => User::factory()->create($data));
+            ->map(fn ($data) => User::factory()->create($data));
 
         $this->createValidAdminUser($users->first());
 
@@ -106,7 +106,7 @@ class UserListControllerTest extends TestCase
             'per_page' => 100,
         ], $filteredUsers);
 
-        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonCount(count($expectedUsers), 'users');
@@ -118,7 +118,7 @@ class UserListControllerTest extends TestCase
     {
         $this->createValidAdminUser();
 
-        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors($expectedErrors);
@@ -129,23 +129,23 @@ class UserListControllerTest extends TestCase
         return [
             'missing required fields' => [
                 [],
-                ['page', 'per_page']
+                ['page', 'per_page'],
             ],
             'page not integer' => [
                 ['page' => 'not-int', 'per_page' => 10],
-                ['page']
+                ['page'],
             ],
             'page less than 1' => [
                 ['page' => 0, 'per_page' => 10],
-                ['page']
+                ['page'],
             ],
             'per_page less than 1' => [
                 ['page' => 1, 'per_page' => 0],
-                ['per_page']
+                ['per_page'],
             ],
             'per_page greater than 100' => [
                 ['page' => 1, 'per_page' => 101],
-                ['per_page']
+                ['per_page'],
             ],
         ];
     }
@@ -157,19 +157,19 @@ class UserListControllerTest extends TestCase
                 'page' => 1,
                 'perPage' => 5,
                 'totalUsers' => 16,
-                'expectedUsers' => 5
+                'expectedUsers' => 5,
             ],
             'page 2' => [
                 'page' => 2,
                 'perPage' => 5,
                 'totalUsers' => 16,
-                'expectedUsers' => 5
+                'expectedUsers' => 5,
             ],
             'page 4' => [
                 'page' => 4,
                 'perPage' => 5,
                 'totalUsers' => 16,
-                'expectedUsers' => 1
+                'expectedUsers' => 1,
             ],
         ];
     }

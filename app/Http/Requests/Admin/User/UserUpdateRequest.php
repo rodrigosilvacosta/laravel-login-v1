@@ -33,8 +33,8 @@ class UserUpdateRequest extends AppFormRequest
     {
         /** @todo mover validação de e-mail unico para o use case */
         return [
-            'first_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
-            'last_name' => 'required|string|min:2|max:45|regex:' . self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
+            'first_name' => 'required|string|min:2|max:45|regex:'.self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
+            'last_name' => 'required|string|min:2|max:45|regex:'.self::VALIDATE_REGEX_FIRST_AND_LAST_NAME,
             'uuid' => 'required|string|uuid',
         ];
     }

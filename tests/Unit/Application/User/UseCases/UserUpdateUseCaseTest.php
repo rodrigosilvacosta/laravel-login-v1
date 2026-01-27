@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 class UserUpdateUseCaseTest extends TestCase
 {
     private MockObject&UserRepositoryInterface $mockUserRepository;
+
     private UserUpdateUseCase $userUpdateUseCase;
 
     protected function setUp(): void
@@ -53,7 +54,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuid))
+            ->with($this->callback(fn (UserUuid $u) => $u->value === $uuid))
             ->willReturn($userEntity);
 
         $this->mockUserRepository
@@ -73,7 +74,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->assertSame([
             'uuid' => $uuid,
             'first_name' => $newFirstName,
-            'last_name' => $newLastName
+            'last_name' => $newLastName,
         ], $outputDto->toArray());
     }
 
@@ -128,7 +129,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuid))
+            ->with($this->callback(fn (UserUuid $u) => $u->value === $uuid))
             ->willReturn(null);
 
         $this->mockUserRepository
@@ -166,7 +167,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuid))
+            ->with($this->callback(fn (UserUuid $u) => $u->value === $uuid))
             ->willReturn($userEntity);
 
         $this->mockUserRepository
@@ -179,7 +180,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->assertSame([
             'uuid' => $uuid,
             'first_name' => $firstName,
-            'last_name' => $lastName
+            'last_name' => $lastName,
         ], $outputDto->toArray());
     }
 }

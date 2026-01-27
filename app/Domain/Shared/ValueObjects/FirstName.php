@@ -34,7 +34,7 @@ final class FirstName
 
     private function validate(): void
     {
-        if (1 !== preg_match(self::VALIDATE_REGEX, $this->value)) {
+        if (preg_match(self::VALIDATE_REGEX, $this->value) !== 1) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::FIRST_NAME_INVALID);
         }
     }

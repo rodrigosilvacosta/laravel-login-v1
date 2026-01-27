@@ -3,14 +3,13 @@
 namespace Tests\Helpers\Feature;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Laravel\Sanctum\Sanctum;
 
 trait SanctumUserCreatorTrait
 {
     private function createValidAdminUser(?User $adminUser = null): User
     {
-        if (null === $adminUser) {
+        if ($adminUser === null) {
             $adminUser = User::factory()->createOne();
         }
 

@@ -20,7 +20,7 @@ class UserUpdateUseCase
         $userUuid = UserUuid::fromString($inputDto->uuid);
         $userEntity = $this->userRepository->findByUuid($userUuid);
 
-        if (null === $userEntity) {
+        if ($userEntity === null) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_UPDATE_USER_NOT_FOUND);
         }
 
@@ -31,7 +31,7 @@ class UserUpdateUseCase
 
         if (
             $userEntity != $userEntityUpdated
-            && !$this->userRepository->update($userEntityUpdated)
+            && ! $this->userRepository->update($userEntityUpdated)
         ) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_UPDATE_FAILURE);
         }

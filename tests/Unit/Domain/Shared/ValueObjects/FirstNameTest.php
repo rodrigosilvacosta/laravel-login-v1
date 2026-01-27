@@ -47,7 +47,7 @@ class FirstNameTest extends TestCase
             ['@lice'], // contém caractere especial
             [''], // vazio
             [' '], // espaço em branco,
-            ['<script>alert(1)</script>']
+            ['<script>alert(1)</script>'],
         ];
     }
 }

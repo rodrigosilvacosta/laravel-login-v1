@@ -9,7 +9,6 @@ use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
 use App\Models\User;
 
-
 class UserRepository implements UserRepositoryInterface
 {
     public function createWithPassword(UserEntity $userEntity, PlainPassword $plainPassword): UserEntity
@@ -37,7 +36,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $model = User::where('uuid', $uuid->value)->first();
 
-        if (!$model) {
+        if (! $model) {
             return null;
         }
 
@@ -54,7 +53,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $affectedRows = User::where('uuid', $userEntity->uuid->value)->update([
             'first_name' => $userEntity->firstName->value,
-            'last_name' => $userEntity->lastName->value
+            'last_name' => $userEntity->lastName->value,
         ]);
 
         return $affectedRows;

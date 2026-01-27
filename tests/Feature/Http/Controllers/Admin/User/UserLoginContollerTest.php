@@ -130,7 +130,7 @@ class UserLoginContollerTest extends TestCase
                     'device_name',
                     'password',
                 ],
-            ]
+            ],
         ];
     }
 

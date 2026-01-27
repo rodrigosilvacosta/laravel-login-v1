@@ -4,8 +4,8 @@ namespace Tests\Feature\Http\Controllers\Admin\User;
 
 use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Helpers\Feature\SanctumUserCreatorTrait;
@@ -13,9 +13,9 @@ use Tests\TestCase;
 
 class UserFindByUuidControllerTest extends TestCase
 {
-    use WithFaker;
     use RefreshDatabase;
     use SanctumUserCreatorTrait;
+    use WithFaker;
 
     private const URI_TEST = 'api/admin/users/uuid';
 
@@ -23,7 +23,7 @@ class UserFindByUuidControllerTest extends TestCase
     {
         $this->createValidAdminUser();
         $user = User::factory()->create();
-        $response = $this->getJson(self::URI_TEST . '/' . $user->uuid);
+        $response = $this->getJson(self::URI_TEST.'/'.$user->uuid);
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure([
@@ -44,7 +44,7 @@ class UserFindByUuidControllerTest extends TestCase
     {
         $this->createValidAdminUser();
         $user = User::factory()->create();
-        $response = $this->getJson(self::URI_TEST . '/' . $this->faker->uuid());
+        $response = $this->getJson(self::URI_TEST.'/'.$this->faker->uuid());
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonStructure(['code', 'errors']);
@@ -61,7 +61,7 @@ class UserFindByUuidControllerTest extends TestCase
     ): void {
         $this->createValidAdminUser();
         $user = User::factory()->create();
-        $response = $this->getJson(self::URI_TEST . '/' . $invalidUuid);
+        $response = $this->getJson(self::URI_TEST.'/'.$invalidUuid);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonStructure(['message', 'errors']);
@@ -73,11 +73,11 @@ class UserFindByUuidControllerTest extends TestCase
         return [
             'short uuid' => [
                 'invalidUuid' => '1',
-                'expectedErrors' => ['uuid']
+                'expectedErrors' => ['uuid'],
             ],
             'invalid uuid format' => [
                 'invalidUuid' => 'invalid-uuid-format-1234',
-                'expectedErrors' => ['uuid']
+                'expectedErrors' => ['uuid'],
             ],
         ];
     }

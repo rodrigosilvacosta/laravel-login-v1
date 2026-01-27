@@ -22,8 +22,11 @@ use PHPUnit\Framework\TestCase;
 class UserLoginUseCaseTest extends TestCase
 {
     private MockObject&SecurityUserRepositoryInterface $mockSecurityUserRepository;
+
     private MockObject&PasswordVerifyServiceInterface $mockPasswordVerifyService;
+
     private MockObject&UserAccessTokenServiceInterface $mockUserAccessTokenService;
+
     private UserLoginUseCase $userLoginUseCase;
 
     protected function setUp(): void

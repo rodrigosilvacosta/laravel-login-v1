@@ -39,7 +39,7 @@ final class DeviceName
     {
         $valuetrimmed = trim($this->value);
 
-        if (empty($valuetrimmed) || !preg_match(self::REGEX_VALIDATION, $valuetrimmed)) {
+        if (empty($valuetrimmed) || ! preg_match(self::REGEX_VALIDATION, $valuetrimmed)) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::DEVICE_NAME_INVALID);
         }
     }

@@ -56,18 +56,18 @@ class EmailTest extends TestCase
             ['meu-email@sub.dominio.com'],
             ['a@b.co'],
             ['nome_sobrenome@dominio.io'],
-            ["usuario@[192.168.0.1]"], //  mas válido pelo RFC
+            ['usuario@[192.168.0.1]'], //  mas válido pelo RFC
         ];
     }
 
     public static function emails_invalid_provider(): array
     {
         return [
-            [" usuario@dominio.com "], // (espaços nas extremidades)
-            [""], // (string vazia)
-            [" "], // (apenas espaços)
-            ["us\"er@dominio.com"], // aspas no
-            ["üser@dominio.com"], // Unicode
+            [' usuario@dominio.com '], // (espaços nas extremidades)
+            [''], // (string vazia)
+            [' '], // (apenas espaços)
+            ['us"er@dominio.com'], // aspas no
+            ['üser@dominio.com'], // Unicode
         ];
     }
 }

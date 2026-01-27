@@ -73,7 +73,7 @@ class UserEntityTest extends TestCase
                 'newFirstName' => $newFirstName,
                 'newLastName' => $newLastName,
                 'expectedFirstName' => $newFirstName,
-                'expectedLastName' => $newLastName
+                'expectedLastName' => $newLastName,
             ],
             [
                 'oldFirstName' => $oldFirstName,
