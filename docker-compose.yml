@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     container_name: laravel-app-login-v1
@@ -7,8 +5,8 @@ services:
       context: .
       dockerfile: ./local/docker/Dockerfile
       args:
-          USER_UID: 1000
-          USER_GID: 1000
+        USER_UID: 1000
+        USER_GID: 1000
     volumes:
       - ./:/var/www
     environment:
