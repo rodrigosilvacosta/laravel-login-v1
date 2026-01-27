@@ -267,7 +267,7 @@ Content-Type: application/json
 
 ## 🧪 Testes
 
-O projeto possui **149 testes** com **499 assertions**, cobrindo:
+O projeto possui testes unitários e de integração, cobrindo:
 - ✅ Testes unitários de Use Cases
 - ✅ Testes unitários de Value Objects
 - ✅ Testes unitários de Entities
@@ -334,28 +334,6 @@ Adicione ao `.vscode/launch.json`:
 
 ---
 
-## 📊 Qualidade do Código
-
-### Métricas
-
-- **Testes**: 149 passando (499 assertions)
-- **Cobertura**: Alta cobertura de Use Cases e Value Objects
-- **Arquitetura**: Clean Architecture (nota 9.5/10)
-- **SOLID**: Todos os princípios aplicados (nota 9/10)
-- **DDD**: Value Objects ricos (nota 9/10)
-
-### Ferramentas de Qualidade
-
-```bash
-# Laravel Pint (Code Style)
-docker exec -it laravel-app-login-v1 ./vendor/bin/pint
-
-# PHPStan (Análise Estática)
-docker exec -it laravel-app-login-v1 ./vendor/bin/phpstan analyse
-```
-
----
-
 ## 📚 Casos de Uso Implementados
 
 ### User Module
@@ -377,8 +355,6 @@ docker exec -it laravel-app-login-v1 ./vendor/bin/phpstan analyse
 - ✅ **Hashing de senhas** com bcrypt
 - ✅ **Timing attack mitigation** no login
 - ✅ **Validação de email único** na camada de domínio
-- ✅ **Value Objects** com validação rigorosa
-- ✅ **Proteção CSRF** (Sanctum)
 
 ---
 
@@ -473,7 +449,6 @@ php artisan ide-helper:models
 - Testes unitários isolados com mocks
 - Testes de integração com banco de dados
 - Cobertura de cenários de sucesso e falha
-- Padrão AAA (Arrange, Act, Assert)
 
 ---
 
