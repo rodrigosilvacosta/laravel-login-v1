@@ -19,7 +19,7 @@ class UserEntity
 {
     use PropertyAccessTrait;
 
-    public function __construct(
+    private function __construct(
         private readonly ?int $id,
         private readonly UserUuid $uuid,
         private readonly FirstName $firstName,

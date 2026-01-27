@@ -32,20 +32,18 @@ class UserFindByUuidUseCaseTest extends TestCase
     {
         $uuidString = '123e4567-e89b-12d3-a456-426614174000';
         $inputDto = new UserFindByUuidInputDto(uuid: $uuidString);
-        $userUuid = UserUuid::fromString($uuidString);
-
-        $userEntity = new UserEntity(
+        $userEntity = UserEntity::createFromPrimitives(
             id: 1,
-            uuid: $userUuid,
-            firstName: FirstName::create('John'),
-            lastName: LastName::create('Doe'),
-            email: Email::create('john@example.com'),
+            uuid: $uuidString,
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@example.com',
         );
 
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($userUuid)
+            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuidString))
             ->willReturn($userEntity);
 
         $outputDto = $this->userFindByUuidUseCase->execute($inputDto);
@@ -63,12 +61,11 @@ class UserFindByUuidUseCaseTest extends TestCase
     {
         $uuidString = '123e4567-e89b-12d3-a456-426614174000';
         $inputDto = new UserFindByUuidInputDto(uuid: $uuidString);
-        $userUuid = UserUuid::fromString($uuidString);
 
         $this->mockUserRepository
             ->expects($this->once())
             ->method('findByUuid')
-            ->with($userUuid)
+            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuidString))
             ->willReturn(null);
 
         $this->expectException(AppDomainException::class);

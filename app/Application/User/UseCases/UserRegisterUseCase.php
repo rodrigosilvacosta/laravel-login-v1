@@ -29,9 +29,9 @@ class UserRegisterUseCase
          *  que será enviado por e-mail
          */
         $plainPassword = PlainPassword::create($inputDto->password);
-        $userEntity = $this->userRepository->createWithPassword($userEntity, $plainPassword);
-
-        if (!$userEntity) {
+        try {
+            $userEntity = $this->userRepository->createWithPassword($userEntity, $plainPassword);
+        } catch (\Exception $e) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_CREATE_FAILURE);
         }
 

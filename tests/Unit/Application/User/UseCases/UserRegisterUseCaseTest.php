@@ -80,10 +80,11 @@ class UserRegisterUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('createWithPassword')
-            ->willReturn(null);
+            ->willThrowException(new \Exception('Database error'));
 
         $this->expectException(AppDomainException::class);
         $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_CREATE_FAILURE->value);
+        $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_CREATE_FAILURE->getMessage());
 
         $this->userRegisterUseCase->execute($inputDto);
     }

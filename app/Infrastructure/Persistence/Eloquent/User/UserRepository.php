@@ -8,9 +8,10 @@ use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
 use App\Models\User;
 
-class UserRespository implements UserRepositoryInterface
+
+class UserRepository implements UserRepositoryInterface
 {
-    public function createWithPassword(UserEntity $userEntity, PlainPassword $plainPassword): ?UserEntity
+    public function createWithPassword(UserEntity $userEntity, PlainPassword $plainPassword): UserEntity
     {
         $data = [
             'uuid' => $userEntity->uuid->value,
@@ -21,10 +22,6 @@ class UserRespository implements UserRepositoryInterface
         ];
 
         $model = User::create($data);
-
-        if (!$model) {
-            return null;
-        }
 
         return UserEntity::createFromPrimitives(
             id: $model->id,
@@ -39,7 +36,7 @@ class UserRespository implements UserRepositoryInterface
     {
         $model = User::where('uuid', $uuid->value)->first();
 
-        if (! $model) {
+        if (!$model) {
             return null;
         }
 

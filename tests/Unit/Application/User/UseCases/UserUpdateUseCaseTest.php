@@ -26,7 +26,7 @@ class UserUpdateUseCaseTest extends TestCase
         $this->userUpdateUseCase = new UserUpdateUseCase($this->mockUserRepository);
     }
 
-    public function test_user_update_use_caseSuccess(): void
+    public function test_user_update_use_case_success(): void
     {
         $uuid = '123e4567-e89b-12d3-a456-426614174000';
         $firstName = 'John';
@@ -59,10 +59,11 @@ class UserUpdateUseCaseTest extends TestCase
         $this->mockUserRepository
             ->expects($this->once())
             ->method('update')
-            ->with($this->callback(function (UserEntity $entity) use ($newFirstName, $newLastName, $uuid) {
+            ->with($this->callback(function (UserEntity $entity) use ($newFirstName, $newLastName, $uuid, $email) {
                 return $entity->firstName->value === $newFirstName
                     && $entity->lastName->value === $newLastName
-                    && $entity->uuid->value === $uuid;
+                    && $entity->uuid->value === $uuid
+                    && $entity->email->value === $email;
             }))
             ->willReturn(1);
 
@@ -112,5 +113,73 @@ class UserUpdateUseCaseTest extends TestCase
         $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_UPDATE_FAILURE->getMessage());
 
         $this->userUpdateUseCase->execute($inputDto);
+    }
+
+    public function test_user_update_use_case_user_not_found(): void
+    {
+        $uuid = '123e4567-e89b-12d3-a456-426614174000';
+
+        $inputDto = new UserUpdateInputDto(
+            firstName: 'Jane',
+            lastName: 'Smith',
+            uuid: $uuid
+        );
+
+        $this->mockUserRepository
+            ->expects($this->once())
+            ->method('findByUuid')
+            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuid))
+            ->willReturn(null);
+
+        $this->mockUserRepository
+            ->expects($this->never())
+            ->method('update');
+
+        $this->expectException(AppDomainException::class);
+        $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_UPDATE_USER_NOT_FOUND->value);
+        $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_UPDATE_USER_NOT_FOUND->getMessage());
+
+        $this->userUpdateUseCase->execute($inputDto);
+    }
+
+    public function test_user_update_use_case_no_changes_needed(): void
+    {
+        $uuid = '123e4567-e89b-12d3-a456-426614174000';
+        $firstName = 'John';
+        $lastName = 'Doe';
+        $email = 'john.doe@example.com';
+
+        $inputDto = new UserUpdateInputDto(
+            firstName: $firstName,
+            lastName: $lastName,
+            uuid: $uuid
+        );
+
+        $userEntity = UserEntity::createFromPrimitives(
+            id: 1,
+            uuid: $uuid,
+            firstName: $firstName,
+            lastName: $lastName,
+            email: $email
+        );
+
+        $this->mockUserRepository
+            ->expects($this->once())
+            ->method('findByUuid')
+            ->with($this->callback(fn(UserUuid $u) => $u->value === $uuid))
+            ->willReturn($userEntity);
+
+        $this->mockUserRepository
+            ->expects($this->never())
+            ->method('update');
+
+        $outputDto = $this->userUpdateUseCase->execute($inputDto);
+
+        $this->assertInstanceOf(UserUpdateOutputDto::class, $outputDto);
+        $this->assertSame([
+            'uuid' => $uuid,
+            'first_name' => $firstName,
+            'last_name' => $lastName
+        ], $outputDto->toArray());
     }
 }

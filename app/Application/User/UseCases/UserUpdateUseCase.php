@@ -19,19 +19,27 @@ class UserUpdateUseCase
     {
         $userUuid = UserUuid::fromString($inputDto->uuid);
         $userEntity = $this->userRepository->findByUuid($userUuid);
-        $userEntity = $userEntity->updatePersonalInfo(
+
+        if (null === $userEntity) {
+            throw new AppDomainException(AppDomainExceptionCodeEnum::USER_UPDATE_USER_NOT_FOUND);
+        }
+
+        $userEntityUpdated = $userEntity->updatePersonalInfo(
             firstName: $inputDto->firstName,
             lastName: $inputDto->lastName
         );
 
-        if (0 === $this->userRepository->update($userEntity)) {
+        if (
+            $userEntity != $userEntityUpdated
+            && !$this->userRepository->update($userEntityUpdated)
+        ) {
             throw new AppDomainException(AppDomainExceptionCodeEnum::USER_UPDATE_FAILURE);
         }
 
         return UserUpdateOutputDto::createFrom(
-            uuid: $userEntity->uuid->value,
-            firstName: $userEntity->firstName->value,
-            lastName: $userEntity->lastName->value,
+            uuid: $userEntityUpdated->uuid->value,
+            firstName: $userEntityUpdated->firstName->value,
+            lastName: $userEntityUpdated->lastName->value,
         );
     }
 }

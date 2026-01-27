@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Application\User\UseCases\UserUpdateUseCase;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
 
 class UserUpdateController extends Controller
 {
     public function __construct(private UserUpdateUseCase $useCase) {}
 
-    public function __invoke(UserUpdateRequest $request): Response
+    public function __invoke(UserUpdateRequest $request): JsonResponse
     {
         $dto = $request->toDto();
         $outputDto = $this->useCase->execute($dto);

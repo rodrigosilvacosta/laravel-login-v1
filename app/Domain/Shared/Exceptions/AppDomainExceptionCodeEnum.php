@@ -17,6 +17,9 @@ enum AppDomainExceptionCodeEnum: int
     case USER_ACCESS_TOKEN_CREATION_FAILURE = 1501;
     case USER_CREATE_FAILURE = 1600;
     case USER_UPDATE_FAILURE = 1700;
+    case USER_UPDATE_USER_NOT_FOUND = 1701;
+    case INVALID_PAGE_NUMBER = 1800;
+    case INVALID_PER_PAGE = 1801;
 
     public function getMessage(): string
     {
@@ -34,6 +37,9 @@ enum AppDomainExceptionCodeEnum: int
             self::USER_ACCESS_TOKEN_CREATION_FAILURE => 'Falha ao criar token de acesso.',
             self::USER_CREATE_FAILURE => 'Erro ao tentar cadastrar o usuário.',
             self::USER_UPDATE_FAILURE => 'Erro ao tentar atualizar o usuário.',
+            self::USER_UPDATE_USER_NOT_FOUND => 'Usuário não encontrado para atualização.',
+            self::INVALID_PAGE_NUMBER => 'Pagina inválida.',
+            self::INVALID_PER_PAGE => 'Itens por pagina inválida.',
         };
     }
 }
