@@ -88,4 +88,29 @@ class UserRegisterUseCaseTest extends TestCase
 
         $this->userRegisterUseCase->execute($inputDto);
     }
+
+    public function test_register_user_use_case_when_email_already_exists(): void
+    {
+        $inputDto = new UserRegisterInputDto(
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'existing@example.com',
+            password: 'password123'
+        );
+
+        $this->mockUserRepository
+            ->expects($this->once())
+            ->method('existsByEmail')
+            ->willReturn(true);
+
+        $this->mockUserRepository
+            ->expects($this->never())
+            ->method('createWithPassword');
+
+        $this->expectException(AppDomainException::class);
+        $this->expectExceptionCode(AppDomainExceptionCodeEnum::USER_CREATE_EMAIL_ALREADY_EXISTS->value);
+        $this->expectExceptionMessage(AppDomainExceptionCodeEnum::USER_CREATE_EMAIL_ALREADY_EXISTS->getMessage());
+
+        $this->userRegisterUseCase->execute($inputDto);
+    }
 }

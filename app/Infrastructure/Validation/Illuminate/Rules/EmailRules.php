@@ -10,8 +10,7 @@ class EmailRules
             'required',
             'min:3',
             'max:255',
-            'email',
-            'unique:users,email'
+            'email'
         ];
     }
 

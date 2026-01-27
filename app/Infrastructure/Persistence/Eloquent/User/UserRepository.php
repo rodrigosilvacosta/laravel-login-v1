@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Persistence\Eloquent\User;
 
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
+use App\Domain\Shared\ValueObjects\Email;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\User\ValueObjects\UserUuid;
@@ -57,5 +58,10 @@ class UserRepository implements UserRepositoryInterface
         ]);
 
         return $affectedRows;
+    }
+
+    public function existsByEmail(Email $email): bool
+    {
+        return User::where('email', $email->value)->exists();
     }
 }

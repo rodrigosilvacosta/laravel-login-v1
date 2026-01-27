@@ -16,6 +16,7 @@ enum AppDomainExceptionCodeEnum: int
     case USER_AUTHENTICATION_FAILURE = 1500;
     case USER_ACCESS_TOKEN_CREATION_FAILURE = 1501;
     case USER_CREATE_FAILURE = 1600;
+    case USER_CREATE_EMAIL_ALREADY_EXISTS = 1601;
     case USER_UPDATE_FAILURE = 1700;
     case USER_UPDATE_USER_NOT_FOUND = 1701;
     case INVALID_PAGE_NUMBER = 1800;
@@ -36,6 +37,7 @@ enum AppDomainExceptionCodeEnum: int
             self::USER_AUTHENTICATION_FAILURE => 'Usuário ou senha inválidos.',
             self::USER_ACCESS_TOKEN_CREATION_FAILURE => 'Falha ao criar token de acesso.',
             self::USER_CREATE_FAILURE => 'Erro ao tentar cadastrar o usuário.',
+            self::USER_CREATE_EMAIL_ALREADY_EXISTS => 'E-mail já cadastrado.',
             self::USER_UPDATE_FAILURE => 'Erro ao tentar atualizar o usuário.',
             self::USER_UPDATE_USER_NOT_FOUND => 'Usuário não encontrado para atualização.',
             self::INVALID_PAGE_NUMBER => 'Pagina inválida.',

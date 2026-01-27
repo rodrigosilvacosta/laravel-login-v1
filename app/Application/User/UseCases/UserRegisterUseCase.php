@@ -9,6 +9,7 @@ use App\Domain\Shared\Exceptions\AppDomainExceptionCodeEnum;
 use App\Domain\User\Entities\UserEntity;
 use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Domain\Shared\Security\ValueObjects\PlainPassword;
+use App\Domain\Shared\ValueObjects\Email;
 
 class UserRegisterUseCase
 {
@@ -23,6 +24,14 @@ class UserRegisterUseCase
             lastName: $inputDto->lastName,
             email: $inputDto->email
         );
+
+        $email = Email::create($inputDto->email);
+
+        if ($this->userRepository->existsByEmail($email)) {
+            throw new AppDomainException(
+                AppDomainExceptionCodeEnum::USER_CREATE_EMAIL_ALREADY_EXISTS
+            );
+        }
 
         /**
          * @todo a senha deverá ser criada através do link de confirmação
