@@ -16,29 +16,29 @@ class UserAppRepository implements UserAppRepositoryInterface
         PageNumber $pageNumber,
         PerPage $perPage
     ): PaginatedResultDto {
-
         $collection = User::select([
             'uuid',
             'first_name',
             'last_name',
             'email',
-        ])->where(function ($query) use ($criteria) {
-            if ($criteria->firstName) {
-                $query->where('first_name', 'LIKE', '%'.$criteria->firstName.'%');
-            }
-            if ($criteria->lastName) {
-                $query->where('last_name', 'LIKE', '%'.$criteria->lastName.'%');
-            }
-            if ($criteria->email) {
-                $query->where('email', 'LIKE', '%'.$criteria->email.'%');
-            }
-        })
-            ->paginate(
-                $perPage->value,
-                ['*'],
-                'page',
-                $pageNumber->value
-            );
+        ])->when(
+            $criteria->firstName,
+            fn($q) =>
+            $q->whereLike('first_name', "%{$criteria->firstName}%")
+        )->when(
+            $criteria->lastName,
+            fn($q) =>
+            $q->whereLike('last_name', "%{$criteria->lastName}%")
+        )->when(
+            $criteria->email,
+            fn($q) =>
+            $q->whereLike('email', "%{$criteria->email}%")
+        )->paginate(
+            $perPage->value,
+            ['*'],
+            'page',
+            $pageNumber->value
+        );
 
         return PaginatedResultDto::create(
             total: $collection->total(),

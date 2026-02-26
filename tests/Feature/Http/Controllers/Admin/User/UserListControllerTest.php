@@ -37,7 +37,7 @@ class UserListControllerTest extends TestCase
             'page' => $page,
             'per_page' => $perPage,
         ];
-        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure([
@@ -79,7 +79,7 @@ class UserListControllerTest extends TestCase
             'per_page' => $perPage,
         ];
 
-        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
             'last_page' => (int) ceil($totalUsers / $perPage),
@@ -97,7 +97,7 @@ class UserListControllerTest extends TestCase
         array $expectedUsers
     ): void {
         $users = collect($dataUsers)
-            ->map(fn ($data) => User::factory()->create($data));
+            ->map(fn($data) => User::factory()->create($data));
 
         $this->createValidAdminUser($users->first());
 
@@ -106,7 +106,7 @@ class UserListControllerTest extends TestCase
             'per_page' => 100,
         ], $filteredUsers);
 
-        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonCount(count($expectedUsers), 'users');
@@ -118,7 +118,7 @@ class UserListControllerTest extends TestCase
     {
         $this->createValidAdminUser();
 
-        $response = $this->getJson(self::URI_TEST.'?'.http_build_query($queryParams));
+        $response = $this->getJson(self::URI_TEST . '?' . http_build_query($queryParams));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors($expectedErrors);
@@ -200,7 +200,7 @@ class UserListControllerTest extends TestCase
                 'filteredUsers' => ['first_name' => 'Rob'],
                 'expectedUsers' => [$dataUsers[0]],
             ],
-            'first_name' => [
+            'first_name_multiple_results' => [
                 'dataUsers' => $dataUsers,
                 'filteredUsers' => ['first_name' => 'YY'],
                 'expectedUsers' => [$dataUsers[1], $dataUsers[2]],
